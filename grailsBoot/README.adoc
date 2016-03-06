@@ -1,0 +1,21 @@
+= Spring Boot and Grails
+
+This project aims to demonstrate that Grails sits on top of Spring Boot.
+
+First have a look at `src/main/groovy/com/example/DemoApplication.groovy`. A raw Spring Boot application that you can
+run with your IDE.
+
+Grails comes with a slightly different main class, located at `grails-app/init/com/example/Application.groovy`.
+
+Running any of them will make available any of the Spring Boot-registered endpoints, such as the `/health` endpoint.
+
+Creating Grails controllers outside the convention-based directory `grails-app/controllers` is also possible. Have a look
+in this case at `src/main/groovy/com/example/HomeController.groovy`.
+
+== REST API
+
+This REST API project is composed of:
+
+* A `Todo` domain class.
+* A `TodoController`.
+* Some JSON views located at `grails-app/views/todo`.

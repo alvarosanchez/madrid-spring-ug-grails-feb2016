@@ -1,0 +1,57 @@
+= GORM in Spring Boot
+
+This project shows how to use GORM 5 in a Spring Boot project.
+
+You can generate a brand new Spring Boot project using the command line:
+
+----
+curl start.spring.io/starter.tgz -d dependencies=web,h2 -d type=gradle-project -d language=groovy -d baseDir=bootGorm | tar -xzvf -
+----
+
+Then, add the dependency in `build.gradle`:
+
+[source,groovy]
+----
+compile "org.grails:gorm-hibernate4-spring-boot:5.0.1.RELEASE"
+----
+
+GORM entities outside Grails have to be annotated with `@Entity`:
+
+[source,groovy]
+----
+import grails.persistence.Entity
+
+@Entity
+class Team {
+	String name
+}
+----
+
+Then, you can use GORM methods in any Spring component. The trick is to have a Hibernate session opened so that GORM
+methods can work:
+
+[source,groovy]
+----
+import org.springframework.boot.CommandLineRunner
+import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
+
+@Component
+@Transactional
+class BootStrap implements CommandLineRunner {
+
+	@Override
+	void run(String... args) throws Exception {
+		new Team(name: "Real Madrid C.F.").save()
+		Team barcelona = new Team(name: "F.C. Barcelona").save()
+
+		println Team.list()
+
+		barcelona.delete(flush: true)
+		assert Team.count() == 1
+	}
+}
+----
+
+
+

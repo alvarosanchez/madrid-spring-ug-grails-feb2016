@@ -1,0 +1,13 @@
+import com.example.Todo
+
+model {
+	Todo todo
+}
+
+response.contentType "application/hal+json"
+
+json hal.render(todo) {
+    action actionName
+    id todo.id
+    description todo.description
+}

@@ -1,0 +1,7 @@
+import com.example.Todo
+
+model {
+	Todo todo
+}
+
+json tmpl.todo(todo)
